@@ -13,9 +13,11 @@ import ManOne from "./blog/man-one.jpg";
 import ManTwo from "./blog/man-two.jpg";
 import ManThree from "./blog/man-three.jpg";
 import ManFour from "./blog/man-four.jpg";
+import NoItemFound from "./no_products_found.png"
 
 
 
 export { Logo, BackgroundBorder, Iframe1, Iframe2, Iframe3, Iframe4, Map,BlogOne,BlogTwo,BlogThree,Social, ManOne,
-    ManTwo, ManThree, ManFour
+    ManTwo, ManThree, ManFour, NoItemFound
  };
+

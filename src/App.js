@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Header from "./Header";
 import MenuLeft from "./MenuLeft";
@@ -6,7 +5,7 @@ import Footer from "./Footer";
 import { useLocation } from "react-router-dom";
 
 function App(props) {
-  const notHasLeftBar = [ "/login", "/register"];
+  const notHasLeftBar = [ "/login", "/register", "/user/update", "/user/my-product","/user/product/add"];
   const location = useLocation()
 
   // console.log({Hehe: notHasLeftBar.includes(location.pathname)});

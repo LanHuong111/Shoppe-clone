@@ -1,36 +1,40 @@
 import { useEffect, useState } from "react";
-import { Social } from "../images";
+import { NoItemFound, Social } from "../images";
 import { api, imageUrl } from "../api";
 import { useParams } from "react-router-dom";
 import BlogCommend from "./BlogCommend";
+import Rate from "./BlogRate.js";
 
-function BlogDetail() { 
+function BlogDetail() {
   const params = useParams(""); // param để lấy id
   const [blogsDetail, setBlogsDetail] = useState({});
-  const [comment, setComment] = useState([])
+  const [comment, setComment] = useState([]);
+  const [votes, setVotes] = useState(0); // số lượng ng vote
   // console.log(setComment);
+
   useEffect(() => {
     api
       .get("/blog/detail/" + params.id)
       .then((response) => {
         // console.log(response);
         setBlogsDetail(response.data.data);
-        setComment(response.data.data.comment) // set comment để truyền props qua blogcomment
+        setComment(response.data.data.comment); // set comment để truyền props qua blogcomment
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [params.id]);
+
   // console.log(blogsDetail);
 
   // console.log(comment);
 
-  return (
+  return blogsDetail && Object.keys(blogsDetail).length ? ( // đoạn này là check lỗi xem vào mấy trang blogg khác có id k có dữ liệu 
     <div className="col-sm-9">
       <div className="blog-post-area">
         <h2 className="title text-center">Latest From our Blog</h2>
         <div className="single-blog-post">
-          <h3>{blogsDetail.title}</h3>
+          <h3>{blogsDetail?.title}</h3>
           <div className="post-meta">
             <ul>
               <li>
@@ -52,15 +56,15 @@ function BlogDetail() {
             </span>
           </div>
           <a href="">
-            <img src={imageUrl + blogsDetail.image} alt="" />
+            <img src={imageUrl + blogsDetail?.image} alt="" />
           </a>
-          <p>{blogsDetail.description}</p>
+          <p>{blogsDetail?.description}</p>
           {/* <div
             dangerouslySetInnerHTML={{
               __html: blogsDetail.content,
             }}
           ></div> */}
-          <p>{blogsDetail.content}</p> 
+          <p>{blogsDetail?.content}</p>
           {/* đoạn comment ở trên là để cho get api về là nó sẽ xóa mất cái thẻ h1 hay thẻ p khii get api về nó hiển thị ra như thế (nsó nguy hiểm nên ít dùng và bất khả kháng mới dùng) */}
           <div className="pager-area">
             <ul className="pager pull-right">
@@ -79,13 +83,9 @@ function BlogDetail() {
         <ul className="ratings">
           <li className="rate-this">Rate this item:</li>
           <li>
-            <i className="fa fa-star color"></i>
-            <i className="fa fa-star color"></i>
-            <i className="fa fa-star color"></i>
-            <i className="fa fa-star"></i>
-            <i className="fa fa-star"></i>
+            <Rate setVotes={setVotes} />
           </li>
-          <li className="color">(6 votes)</li>
+          <li className="color">({votes} votes)</li>
         </ul>
         <ul className="tag">
           <li>TAG:</li>
@@ -113,8 +113,19 @@ function BlogDetail() {
         </a>
       </div>
 
-     
-      <BlogCommend comments={comment} setComments={setComment}/>
+      <BlogCommend comments={comment} setComments={setComment} />
+    </div>
+  ) : (
+    <div
+      className="col-sm-9"
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 200
+      }}
+    >
+      <img src={NoItemFound} alt="" />
     </div>
   );
 }

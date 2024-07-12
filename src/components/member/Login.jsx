@@ -82,7 +82,7 @@ function Login() {
             toast.success(response.data.success)  
             // toast.success("Bạn đã đăng nhập thành công")  
             // navigate("/")
-            navigate("/blog/list")
+            navigate("/")
 
 
           } else { // sai thì vào đây và thông báo hiển thị lỗi

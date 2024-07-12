@@ -10,6 +10,10 @@ import Login from './components/member/Login';
 import Register from './components/member/Register';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import Cha from './Cha';
+import UpdateUser from './components/member/UpdateUser';
+import ProductUser from './components/member/Product-User';
+import AddProduct from './components/member/Add-Product';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,21 +26,23 @@ root.render(
           <Route path='/blog/detail/:id' element={<BlogDetail/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/register' element={<Register/>}/>
+          <Route path='/concha' element={<Cha />}/>
+          <Route path='/user/update' element={<UpdateUser/>}/>
+          <Route path='/user/my-product' element={<ProductUser/>}/>
+          <Route path='/user/product/add' element={<AddProduct/>}/>
+
         </Routes>
         <ToastContainer />
         {/* có 3 màu 
         toast.warning vàng(lỗi bth)
         toast.error đỏ (Lỗi nghiêm trọng)
-        toast.success xanh (Thành cồn) */}
+        toast.success xanh (Thành công) */}
       </App>
       </Router>
 
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
 

@@ -11,9 +11,9 @@ function Header() {
     const token = localStorage.getItem("token");
 	// setLogin(!!token)
 	if(token){
-		setLogin(true)
+		setLogin(true) //logout
 	}else{
-		setLogin(false)
+		setLogin(false) //login
 	}
     }, [location.pathname]);
 
@@ -21,7 +21,7 @@ function Header() {
     localStorage.removeItem("token");
     // remove xóa tất cả
     // remove + item : removeItem xóa 1 cái
-    setLogin(false); // khi đăng xuất set lại là false
+    setLogin(false); // khi đăng xuất set lại là false => hiển thị lại  login
   };
 
   return (
@@ -134,9 +134,9 @@ function Header() {
                 <div className="shop-menu clearfix pull-right">
                   <ul className="nav navbar-nav">
                     <li>
-                      <a href="">
+                      <Link to="/user/update">
                         <i className="fa fa-user"></i> Account
-                      </a>
+                      </Link>
                     </li>
                     <li>
                       <a href="">
@@ -157,7 +157,7 @@ function Header() {
 					{login ? (
                           <li>
                             <Link to="/login" onClick={handleLogout}>
-							<i class="fa-solid fa-right-from-bracket"></i>Logout
+							<i className="fa-solid fa-right-from-bracket"></i>Logout
                             </Link>
                           </li>
                         ) : (

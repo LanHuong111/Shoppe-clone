@@ -19,40 +19,44 @@ function Register() {
   const [avatar, setAvatar] = useState(""); // để lưu hình ảnh mã hóa và gửi qua api
   const navigate = useNavigate();
 
-  useEffect(() =>{
-    const token = localStorage.getItem("token")
-    if(token){
-      navigate("/")
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/");
     }
-  })
+  }, []);
+  // useEffect này là check xem có token chưa, có rồi thì k đc đăng kí lại
 
   const handleChangeInputs = (event) => {
     const { name, value } = event.target;
-    setInputs((prevInputs) => ({ ...prevInputs, [name]: value })); 
-  };
+    setInputs((prevInputs) => ({ ...prevInputs, [name]: value }));
+  }; // change để lưu dữ liệu ng dùng đang nhập
+  console.log(inputs);
 
   function handleUserInputFile(e) {
-    const file = e.target.files[0];
+    const file = e.target.files[0]; // thông tin hình ảnh
+    // console.log(file);
     let reader = new FileReader();
     reader.onload = (e) => {
+      // console.log(e.target.result);
       setAvatar(e.target.result); // cái này để gửi api (base 64)
       setFile(file); //cái này để lưu toàn bộ thông tin file upload
     };
-    reader.readAsDataURL(file); //đoạn function chỗ này dùng để chuyển ảnh qua base 64 là 1 chuỗi vì api nó chỉ nharah
+    reader.readAsDataURL(file); //đoạn function chỗ này dùng để chuyển ảnh qua base 64 là 1 chuỗi vì api nó chỉ nhận chuỗi
   }
 
   // console.log({ avatar });
-   //chỗ này log ra xem đã mã hóa thành chuỗi hay chưa(base 64)
+  //chỗ này log ra xem đã mã hóa thành chuỗi hay chưa(base 64)
   //Do avatar upload lên trả về 1 array, nên gửi qua api k dc, vi vậy ta phải mã hoá bằng avatar 1chuỗi
-  
+
   function handleSubmit(e) {
     e.preventDefault();
     let errorsSubmit = {};
     let flag = true;
     let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
-    console.log(file);
-  console.log(inputs);
+    // console.log(file);
+    console.log(inputs);
 
     if (!inputs.name) {
       errorsSubmit.name = " Vui lòng nhập tên";
@@ -80,18 +84,18 @@ function Register() {
       flag = false;
     }
     if (!file) {
-      errorsSubmit.avatar = " Vui lòng nhập hình ảnh ";
+      errorsSubmit.avatar = " Vui lòng chọn hình ảnh ";
       flag = false;
     } else {
       const type = file.type;
       const size = file.size;
       if (!type.includes("image")) {
         toast.error("Vui lòng chọn hình ảnh");
-        flag = false
+        flag = false;
       } else {
         if (size > 1024 * 1024) {
           toast.warning("File tải lên quá lớn");
-          flag = false
+          flag = false;
         } else {
           inputs.avatar = avatar;
           console.log("Ảnh tải lên thành công");
@@ -105,19 +109,17 @@ function Register() {
       setErrors({});
 
       api
-      .post("/register" , inputs)
-      .then((response) =>{
-      // console.log(response);
-        toast.success("Bạn đăng kí thành công");  
-        navigate("/login")//
-
-      })
-      .catch((error) =>{ console.log(error);})
-      
+        .post("/register", inputs)
+        .then((response) => {
+          console.log(response);
+          toast.success("Bạn đăng kí thành công");
+          navigate("/login");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
-   
   }
-
 
   return (
     <div className="col-sm-4">

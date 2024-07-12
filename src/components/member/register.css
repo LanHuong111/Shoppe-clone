@@ -1,3 +1,25 @@
-p {
-    color: red
+.replycmt {
+    color: red;
+    cursor: pointer;
+}
+.fa-reply{
+    padding: 10px;
+}
+.updateUser{
+    margin: 0 200px;
+    
+}
+p.error{
+    color: red;
+}
+.sale-input-container{
+    display: flex;
+  align-items: center;
+}
+.sale-input-container input {
+    margin-right: 5px; /* Khoảng cách giữa input và dấu % */
+  }
+
+.error-input{
+    color: red;
 }

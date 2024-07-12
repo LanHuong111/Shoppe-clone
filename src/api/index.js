@@ -8,3 +8,4 @@ const imageUrl = "https://localhost/laravel8/laravel8/public/upload/blog/image/"
 const imageUserUrl = "https://localhost/laravel8/laravel8/public/upload/user/avatar/"
 
 export { api, imageUrl, imageUserUrl };
+
